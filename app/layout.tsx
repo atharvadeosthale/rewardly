@@ -16,10 +16,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Suspense>
-      <ClerkProvider>
-        <html lang="en" suppressHydrationWarning>
-          <body className="font-sans antialiased">
+    <html lang="en" suppressHydrationWarning>
+      <body className="font-sans antialiased">
+        <Suspense
+          fallback={
+            <div className="w-full h-screen flex items-center justify-center">
+              Loading...
+            </div>
+          }
+        >
+          <ClerkProvider>
             <ThemeProvider
               attribute="class"
               defaultTheme="system"
@@ -29,9 +35,9 @@ export default function RootLayout({
               <Navbar />
               {children}
             </ThemeProvider>
-          </body>
-        </html>
-      </ClerkProvider>
-    </Suspense>
+          </ClerkProvider>
+        </Suspense>
+      </body>
+    </html>
   );
 }

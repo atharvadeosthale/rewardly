@@ -23,6 +23,7 @@ export default function Register() {
             },
           }}
           signInUrl="/login"
+          forceRedirectUrl="/dashboard"
         />
       </div>
     </div>
