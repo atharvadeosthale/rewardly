@@ -1,8 +1,4 @@
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { UserCircle2 } from "lucide-react";
 import { ThemeToggler } from "./theme-toggler";
-import { auth } from "@clerk/nextjs/server";
-import { SignInButton, UserButton } from "@clerk/nextjs";
 import { NavbarAuthChecker } from "./navbar-auth-checker";
 import { Suspense } from "react";
 
