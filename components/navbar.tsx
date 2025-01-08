@@ -1,8 +1,10 @@
-"use client";
-
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { UserCircle2 } from "lucide-react";
 import { ThemeToggler } from "./theme-toggler";
+import { auth } from "@clerk/nextjs/server";
+import { SignInButton, UserButton } from "@clerk/nextjs";
+import { NavbarAuthChecker } from "./navbar-auth-checker";
+import { Suspense } from "react";
 
 export function Navbar() {
   return (
@@ -12,13 +14,11 @@ export function Navbar() {
           <div className="flex-shrink-0">
             <h1 className="text-xl font-bold">Rewardly</h1>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-4 text-sm">
+            <Suspense fallback={<div>Loading...</div>}>
+              <NavbarAuthChecker />
+            </Suspense>
             <ThemeToggler />
-            <Avatar className="h-8 w-8">
-              <AvatarFallback>
-                <UserCircle2 className="h-5 w-5" />
-              </AvatarFallback>
-            </Avatar>
           </div>
         </div>
       </div>
