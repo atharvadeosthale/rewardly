@@ -3,6 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/navbar";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Rewardly",
@@ -15,20 +16,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
-      <html lang="en" suppressHydrationWarning>
-        <body className="font-sans antialiased">
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <Navbar />
-            {children}
-          </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+    <Suspense>
+      <ClerkProvider>
+        <html lang="en" suppressHydrationWarning>
+          <body className="font-sans antialiased">
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <Navbar />
+              {children}
+            </ThemeProvider>
+          </body>
+        </html>
+      </ClerkProvider>
+    </Suspense>
   );
 }
