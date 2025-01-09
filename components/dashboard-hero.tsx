@@ -9,7 +9,7 @@ export default function DashboardHero() {
           Welcome to Rewardly
         </h1>
         <div className="max-w-2xl mx-auto px-4">
-          <TextGenerateEffect words="Track your tasks, earn rewards, and treat yourself. Every completed task brings you closer to your next reward." />
+          <TextGenerateEffect words="Add todos, complete them, earn coins and spend them on rewards that you set yourself. Peak productivity." />
         </div>
       </div>
       <BackgroundBeams />
