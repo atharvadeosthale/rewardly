@@ -9,3 +9,5 @@ export const todosTable = sqliteTable("todos", {
     .notNull()
     .references(() => usersTable.id),
 });
+
+export type Todo = typeof todosTable.$inferSelect;
