@@ -5,6 +5,7 @@ import { eq } from "drizzle-orm";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle2, Circle } from "lucide-react";
 import { usersTable } from "@/database/schemas/user";
+import { TodoModal } from "./todo-modal";
 
 async function TodoList() {
   const { userId } = await auth();
@@ -57,7 +58,10 @@ async function TodoList() {
 export default async function TodosSection() {
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4">Your Todos</h2>
+      <div className="flex justify-between items-center">
+        <h2 className="text-2xl font-bold mb-4">Your Todos</h2>
+        <TodoModal />
+      </div>
       <TodoList />
     </div>
   );

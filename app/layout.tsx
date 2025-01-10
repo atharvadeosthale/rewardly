@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/navbar";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Suspense } from "react";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Rewardly",
@@ -36,6 +37,7 @@ export default function RootLayout({
               {children}
             </ThemeProvider>
           </ClerkProvider>
+          <Toaster />
         </Suspense>
       </body>
     </html>
