@@ -34,10 +34,21 @@ export function Navbar() {
             <h1 className="text-xl font-bold">Rewardly</h1>
           </div>
           <div className="flex items-center gap-4 text-sm">
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense
+              fallback={
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 rounded-full bg-muted animate-pulse" />
+                  <div className="w-16 h-4 rounded bg-muted animate-pulse" />
+                </div>
+              }
+            >
               <UserBalance />
             </Suspense>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense
+              fallback={
+                <div className="w-20 h-8 rounded bg-muted animate-pulse" />
+              }
+            >
               <NavbarAuthChecker />
             </Suspense>
             <ThemeToggler />
