@@ -23,7 +23,7 @@ export default function Login() {
             },
           }}
           signUpUrl="/register"
-          forceRedirectUrl="/dashboard"
+          forceRedirectUrl="/auth-success"
         />
       </div>
     </div>

@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
 import { db } from "@/database/db";
 import { usersTable } from "@/database/schemas/user";
+import { eq } from "drizzle-orm";
 
 export async function POST(req: Request) {
   const SIGNING_SECRET = process.env.CLERK_WEBHOOK_SECRET_KEY;
@@ -54,9 +55,21 @@ export async function POST(req: Request) {
   const { id } = evt.data;
   const eventType = evt.type;
   console.log(`Received webhook with ID ${id} and event type of ${eventType}`);
-  console.log("Webhook payload:", body);
+  // console.log("Webhook payload:", body);
 
   if (eventType === "user.created") {
+    const [existingUser] = await db
+      .select()
+      .from(usersTable)
+      .where(eq(usersTable.clerk_id, payload.data.id));
+
+    console.log("existingUser from webhook", existingUser);
+
+    if (existingUser) {
+      console.log("User already exists", payload.data.id);
+      return new Response("User already exists", { status: 200 });
+    }
+
     await db.insert(usersTable).values({
       clerk_id: payload.data.id,
     });
