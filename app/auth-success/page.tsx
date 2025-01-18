@@ -19,7 +19,10 @@ export default async function AuthSuccessHandler() {
   console.log("existingUser from in-house auth handler", existingUser);
 
   if (existingUser) {
-    console.log("User already exists", userId);
+    console.log(
+      "User already exists checked through in-house auth handler",
+      userId
+    );
     return redirect("/dashboard");
   }
 

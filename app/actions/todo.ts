@@ -28,8 +28,44 @@ export async function createTodo(input: CreateTodoInput) {
   await db.insert(todosTable).values({
     title: input.title,
     user_id: user[0].id,
+    reward: input.coins,
     completed: 0,
   });
+
+  revalidatePath("/dashboard");
+}
+
+export async function completeTodo(id: number) {
+  const { userId } = await auth();
+
+  if (!userId) {
+    throw new Error("Unauthorized");
+  }
+
+  const user = await db
+    .select()
+    .from(usersTable)
+    .where(eq(usersTable.clerk_id, userId))
+    .limit(1);
+
+  const [todo] = await db
+    .select()
+    .from(todosTable)
+    .where(eq(todosTable.id, id));
+
+  if (!todo || todo.user_id !== user[0].id) {
+    throw new Error("Unauthorized");
+  }
+
+  await db
+    .update(todosTable)
+    .set({ completed: 1 })
+    .where(eq(todosTable.id, id));
+
+  await db
+    .update(usersTable)
+    .set({ balance: user[0].balance + todo.reward })
+    .where(eq(usersTable.id, user[0].id));
 
   revalidatePath("/dashboard");
 }
