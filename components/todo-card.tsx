@@ -16,7 +16,7 @@ export default function TodoCard({ todo, key }: { todo: Todo; key?: number }) {
 
   return (
     <Card
-      key={todo.id}
+      key={key}
       className={`group hover:border-primary/50 transition-colors ${
         clicked && "opacity-50"
       }`}

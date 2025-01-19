@@ -1,9 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { db } from "@/database/db";
-import { Todo, todosTable } from "@/database/schemas/todo";
+import { Todo } from "@/database/schemas/todo";
 import { eq } from "drizzle-orm";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { CheckCircle2, Circle } from "lucide-react";
 import { usersTable } from "@/database/schemas/user";
 import { TodoModal } from "./todo-modal";
 import TodoCard from "./todo-card";
