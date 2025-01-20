@@ -8,7 +8,7 @@ export const todosTable = sqliteTable("todos", {
   user_id: int("user_id")
     .notNull()
     .references(() => usersTable.id),
-  reward: int("reward").notNull().default(0),
+  rewardCoins: int("reward_coins").notNull().default(0),
 });
 
 export type Todo = typeof todosTable.$inferSelect;

@@ -31,7 +31,9 @@ export default function TodoCard({ todo, key }: { todo: Todo; key?: number }) {
         )}
       </CardHeader>
       <CardContent>
-        <div className="text-xs text-muted-foreground">{todo.reward} coins</div>
+        <div className="text-xs text-muted-foreground">
+          {todo.rewardCoins} coins
+        </div>
       </CardContent>
     </Card>
   );
