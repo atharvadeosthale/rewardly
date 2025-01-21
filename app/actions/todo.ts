@@ -28,7 +28,7 @@ export async function createTodo(input: CreateTodoInput) {
   await db.insert(todosTable).values({
     title: input.title,
     user_id: user[0].id,
-    reward: input.coins,
+    rewardCoins: input.coins,
     completed: 0,
   });
 
@@ -64,7 +64,7 @@ export async function completeTodo(id: number) {
 
   await db
     .update(usersTable)
-    .set({ balance: user[0].balance + todo.reward })
+    .set({ balance: user[0].balance + todo.rewardCoins })
     .where(eq(usersTable.id, user[0].id));
 
   revalidatePath("/dashboard");
