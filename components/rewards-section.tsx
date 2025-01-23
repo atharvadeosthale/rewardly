@@ -5,7 +5,6 @@ import { eq } from "drizzle-orm";
 import { usersTable } from "@/database/schemas/user";
 import { RewardModal } from "./reward-modal";
 import RewardCard from "./reward-card";
-import { rewardsTable } from "@/database/schemas/reward";
 
 async function RewardList() {
   const { userId } = await auth();
