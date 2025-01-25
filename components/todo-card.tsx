@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { CheckCircle2, Circle } from "lucide-react";
+import { CheckCircle2, Circle, Coins } from "lucide-react";
 import { Todo } from "@/database/schemas/todo";
 import { completeTodo } from "@/app/actions/todo";
 
@@ -31,7 +31,8 @@ export default function TodoCard({ todo, key }: { todo: Todo; key?: number }) {
         )}
       </CardHeader>
       <CardContent>
-        <div className="text-xs text-muted-foreground">
+        <div className="flex items-center gap-1 text-xs text-muted-foreground">
+          <Coins className="w-3 h-3 text-yellow-500" />
           {todo.rewardCoins} coins
         </div>
       </CardContent>
