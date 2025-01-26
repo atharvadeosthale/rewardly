@@ -18,7 +18,7 @@ async function UserBalance() {
   if (!user) return null;
 
   return (
-    <div className="flex items-center gap-2 text-sm">
+    <div className="flex items-center gap-2 text-sm border rounded-full px-3 py-2">
       <Coins className="w-4 h-4 text-yellow-500" />
       <span>{user.balance} coins</span>
     </div>

@@ -10,34 +10,36 @@ export default async function Dashboard() {
   return (
     <div className="max-w-6xl mx-auto space-y-8 my-10">
       <DashboardHero />
-      <Suspense
-        fallback={
-          <div className="animate-pulse space-y-4">
-            <div className="h-8 w-48 bg-muted rounded" />
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {[...Array(3)].map((_, i) => (
-                <div key={i} className="h-32 bg-muted rounded-lg" />
-              ))}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <Suspense
+          fallback={
+            <div className="animate-pulse space-y-4">
+              <div className="h-8 w-48 bg-muted rounded" />
+              <div className="grid grid-cols-1 gap-4">
+                {[...Array(3)].map((_, i) => (
+                  <div key={i} className="h-32 bg-muted rounded-lg" />
+                ))}
+              </div>
             </div>
-          </div>
-        }
-      >
-        <TodosSection />
-      </Suspense>
-      <Suspense
-        fallback={
-          <div className="animate-pulse space-y-4">
-            <div className="h-8 w-48 bg-muted rounded" />
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {[...Array(3)].map((_, i) => (
-                <div key={i} className="h-32 bg-muted rounded-lg" />
-              ))}
+          }
+        >
+          <TodosSection />
+        </Suspense>
+        <Suspense
+          fallback={
+            <div className="animate-pulse space-y-4">
+              <div className="h-8 w-48 bg-muted rounded" />
+              <div className="grid grid-cols-1 gap-4">
+                {[...Array(3)].map((_, i) => (
+                  <div key={i} className="h-32 bg-muted rounded-lg" />
+                ))}
+              </div>
             </div>
-          </div>
-        }
-      >
-        <RewardsSection />
-      </Suspense>
+          }
+        >
+          <RewardsSection />
+        </Suspense>
+      </div>
     </div>
   );
 }

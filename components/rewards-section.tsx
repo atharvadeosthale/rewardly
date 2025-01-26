@@ -29,7 +29,7 @@ async function RewardList() {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-5">
+    <div className="grid grid-cols-1 gap-4 mt-5">
       {rewards.map((reward: Reward) => (
         <RewardCard reward={reward} key={reward.id} />
       ))}
