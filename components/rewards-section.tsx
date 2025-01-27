@@ -22,7 +22,7 @@ async function RewardList() {
 
   if (!rewards.length) {
     return (
-      <div className="text-center text-muted-foreground">
+      <div className="text-center text-muted-foreground mt-5">
         No rewards yet. Start by adding one!
       </div>
     );

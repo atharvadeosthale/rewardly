@@ -1,7 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { db } from "@/database/db";
-import { Todo } from "@/database/schemas/todo";
-import { eq } from "drizzle-orm";
+import { Todo, todosTable } from "@/database/schemas/todo";
+import { and, eq } from "drizzle-orm";
 import { usersTable } from "@/database/schemas/user";
 import { TodoModal } from "./todo-modal";
 import TodoCard from "./todo-card";
@@ -16,13 +16,14 @@ async function TodoList() {
 
   if (!user) return null;
 
-  const todos = await db.query.todosTable.findMany({
-    where: (todos) => eq(todos.user_id, user.id) && eq(todos.completed, 0),
-  });
+  const todos = await db
+    .select()
+    .from(todosTable)
+    .where(and(eq(todosTable.user_id, user.id), eq(todosTable.completed, 0)));
 
   if (!todos.length) {
     return (
-      <div className="text-center text-muted-foreground">
+      <div className="text-center text-muted-foreground mt-5">
         No todos yet. Start by adding one!
       </div>
     );
