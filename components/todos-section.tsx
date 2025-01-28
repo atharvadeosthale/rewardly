@@ -10,9 +10,12 @@ async function TodoList() {
   const { userId } = await auth();
   if (!userId) return null;
 
-  const user = await db.query.usersTable.findFirst({
-    where: eq(usersTable.clerk_id, userId),
-  });
+  const user = await db
+    .select()
+    .from(usersTable)
+    .where(eq(usersTable.clerk_id, userId))
+    .limit(1)
+    .then((rows) => rows[0]);
 
   if (!user) return null;
 
