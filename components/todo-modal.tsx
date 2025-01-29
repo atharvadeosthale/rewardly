@@ -16,9 +16,11 @@ import { createTodo } from "@/app/actions/todo";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { toast } from "sonner";
+import { Textarea } from "./ui/textarea";
 
 const todoSchema = z.object({
   title: z.string().min(1, "Title is required"),
+  description: z.string().optional(),
   coins: z.number().min(1, "Coins must be at least 1"),
 });
 
@@ -71,6 +73,14 @@ function ModalContents() {
             {errors.title && (
               <p className="text-sm text-red-500">{errors.title.message}</p>
             )}
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="description">Description</Label>
+            <Textarea
+              id="description"
+              placeholder="Enter description"
+              {...register("description")}
+            />
           </div>
           <div className="space-y-2">
             <Label htmlFor="coins">Reward Coins</Label>

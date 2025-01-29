@@ -4,6 +4,7 @@ import { usersTable } from "./user";
 export const todosTable = sqliteTable("todos", {
   id: int("id").primaryKey({ autoIncrement: true }),
   title: text("title").notNull(),
+  description: text("description").default(""),
   completed: int("completed").notNull().default(0),
   user_id: int("user_id")
     .notNull()

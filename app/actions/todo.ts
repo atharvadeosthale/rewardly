@@ -10,6 +10,7 @@ import { eq } from "drizzle-orm";
 type CreateTodoInput = {
   title: string;
   coins: number;
+  description?: string;
 };
 
 export async function createTodo(input: CreateTodoInput) {
@@ -30,6 +31,7 @@ export async function createTodo(input: CreateTodoInput) {
     user_id: user[0].id,
     rewardCoins: input.coins,
     completed: 0,
+    description: input.description,
   });
 
   revalidatePath("/dashboard");
