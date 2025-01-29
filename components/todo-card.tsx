@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { CheckCircle2, Circle, Coins, Trash2 } from "lucide-react";
 import { Todo } from "@/database/schemas/todo";
-import { completeTodo, deleteTodo } from "@/app/actions/todo";
+import { completeTodo, deleteTodo } from "@/actions/todo";
 import { Button } from "./ui/button";
 
 export default function TodoCard({ todo, key }: { todo: Todo; key?: number }) {

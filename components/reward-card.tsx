@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Coins, Gift, Trash2 } from "lucide-react";
 import { Reward } from "@/database/schemas/reward";
-import { claimReward, deleteReward } from "@/app/actions/reward";
+import { claimReward, deleteReward } from "@/actions/reward";
 import { toast } from "sonner";
 import { Button } from "./ui/button";
 
