@@ -69,3 +69,29 @@ export async function completeTodo(id: number) {
 
   revalidatePath("/dashboard");
 }
+
+export async function deleteTodo(id: number) {
+  const { userId } = await auth();
+
+  if (!userId) {
+    throw new Error("Unauthorized");
+  }
+
+  const user = await db
+    .select()
+    .from(usersTable)
+    .where(eq(usersTable.clerk_id, userId))
+    .limit(1);
+
+  const [todo] = await db
+    .select()
+    .from(todosTable)
+    .where(eq(todosTable.id, id));
+
+  if (!todo || todo.user_id !== user[0].id) {
+    throw new Error("Unauthorized");
+  }
+
+  await db.delete(todosTable).where(eq(todosTable.id, id));
+  revalidatePath("/dashboard");
+}
