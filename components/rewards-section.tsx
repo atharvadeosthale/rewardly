@@ -1,30 +1,16 @@
 import { auth } from "@clerk/nextjs/server";
-import { db } from "@/database/db";
-import { Reward, rewardsTable } from "@/database/schemas/reward";
-import { eq } from "drizzle-orm";
-import { usersTable } from "@/database/schemas/user";
+import { Reward } from "@/database/schemas/reward";
 import { RewardModal } from "./reward-modal";
 import RewardCard from "./reward-card";
+import { fetchRewards } from "@/backend/getters/reward";
 
 async function RewardList() {
   const { userId } = await auth();
   if (!userId) return null;
 
-  const user = await db
-    .select()
-    .from(usersTable)
-    .where(eq(usersTable.clerk_id, userId))
-    .limit(1)
-    .then((rows) => rows[0]);
+  const rewards = await fetchRewards(userId);
 
-  if (!user) return null;
-
-  const rewards = await db
-    .select()
-    .from(rewardsTable)
-    .where(eq(rewardsTable.createdBy, user.id));
-
-  if (!rewards.length) {
+  if (!rewards || !rewards.length) {
     return (
       <div className="text-center text-muted-foreground mt-5">
         No rewards yet. Start by adding one!

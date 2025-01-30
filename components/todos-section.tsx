@@ -1,30 +1,15 @@
 import { auth } from "@clerk/nextjs/server";
-import { db } from "@/database/db";
-import { Todo, todosTable } from "@/database/schemas/todo";
-import { and, eq } from "drizzle-orm";
-import { usersTable } from "@/database/schemas/user";
+import { Todo } from "@/database/schemas/todo";
 import { TodoModal } from "./todo-modal";
 import TodoCard from "./todo-card";
+import { fetchTodos } from "@/backend/getters/todo";
 
 async function TodoList() {
-  const { userId } = await auth();
-  if (!userId) return null;
+  const { userId } = await auth.protect();
 
-  const user = await db
-    .select()
-    .from(usersTable)
-    .where(eq(usersTable.clerk_id, userId))
-    .limit(1)
-    .then((rows) => rows[0]);
+  const todos = await fetchTodos(userId);
 
-  if (!user) return null;
-
-  const todos = await db
-    .select()
-    .from(todosTable)
-    .where(and(eq(todosTable.user_id, user.id), eq(todosTable.completed, 0)));
-
-  if (!todos.length) {
+  if (!todos || !todos.length) {
     return (
       <div className="text-center text-muted-foreground mt-5">
         No todos yet. Start by adding one!
