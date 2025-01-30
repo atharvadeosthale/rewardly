@@ -1,26 +1,22 @@
 import { ThemeToggler } from "./theme-toggler";
 import { NavbarAuthChecker } from "./navbar-auth-checker";
 import { Suspense } from "react";
-import { db } from "@/database/db";
-import { usersTable } from "@/database/schemas/user";
-import { eq } from "drizzle-orm";
 import { auth } from "@clerk/nextjs/server";
 import { Coins } from "lucide-react";
+import { getCoins } from "@/backend/getters/user";
 
 async function UserBalance() {
   const { userId } = await auth();
   if (!userId) return null;
 
-  const user = await db.query.usersTable.findFirst({
-    where: eq(usersTable.clerk_id, userId),
-  });
+  const balance = await getCoins(userId);
 
-  if (!user) return null;
+  if (!balance) return null;
 
   return (
     <div className="flex items-center gap-2 text-sm border rounded-full px-3 py-2">
       <Coins className="w-4 h-4 text-yellow-500" />
-      <span>{user.balance} coins</span>
+      <span>{balance} coins</span>
     </div>
   );
 }
