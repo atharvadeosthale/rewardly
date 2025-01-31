@@ -4,7 +4,7 @@ import "server-only";
 import { auth } from "@clerk/nextjs/server";
 import { db } from "@/database/db";
 import { todosTable } from "@/database/schemas/todo";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { usersTable } from "@/database/schemas";
 import { eq } from "drizzle-orm";
 
@@ -35,7 +35,7 @@ export async function createTodo(input: CreateTodoInput) {
     description: input.description,
   });
 
-  revalidatePath("/dashboard");
+  revalidateTag(`todos-${userId}`);
 }
 
 export async function completeTodo(id: number) {
@@ -70,7 +70,8 @@ export async function completeTodo(id: number) {
     .set({ balance: user[0].balance + todo.rewardCoins })
     .where(eq(usersTable.id, user[0].id));
 
-  revalidatePath("/dashboard");
+  revalidateTag(`todos-${userId}`);
+  revalidateTag(`users-${userId}`);
 }
 
 export async function deleteTodo(id: number) {
@@ -96,5 +97,5 @@ export async function deleteTodo(id: number) {
   }
 
   await db.delete(todosTable).where(eq(todosTable.id, id));
-  revalidatePath("/dashboard");
+  revalidateTag(`todos-${userId}`);
 }

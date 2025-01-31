@@ -8,7 +8,7 @@ import { unstable_cacheTag as cacheTag } from "next/cache";
 
 export async function getCoins(userId: string) {
   "use cache";
-  cacheTag(`user-${userId}`);
+  cacheTag(`users-${userId}`);
 
   const user = await db
     .select()

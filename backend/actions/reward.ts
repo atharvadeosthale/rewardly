@@ -4,7 +4,7 @@ import "server-only";
 import { auth } from "@clerk/nextjs/server";
 import { db } from "@/database/db";
 import { rewardsTable } from "@/database/schemas/reward";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { usersTable } from "@/database/schemas";
 import { eq } from "drizzle-orm";
 
@@ -34,7 +34,7 @@ export async function createReward(input: CreateRewardInput) {
     createdBy: user[0].id,
   });
 
-  revalidatePath("/dashboard");
+  revalidateTag(`rewards-${userId}`);
 }
 
 export async function claimReward(id: number) {
@@ -68,7 +68,8 @@ export async function claimReward(id: number) {
     .set({ balance: user[0].balance - reward.cost })
     .where(eq(usersTable.id, user[0].id));
 
-  revalidatePath("/dashboard");
+  revalidateTag(`rewards-${userId}`);
+  revalidateTag(`users-${userId}`);
 }
 
 export async function deleteReward(id: number) {
@@ -94,5 +95,6 @@ export async function deleteReward(id: number) {
   }
 
   await db.delete(rewardsTable).where(eq(rewardsTable.id, id));
-  revalidatePath("/dashboard");
+  revalidateTag(`rewards-${userId}`);
+  revalidateTag(`users-${userId}`);
 }
