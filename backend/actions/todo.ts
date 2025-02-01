@@ -4,7 +4,7 @@ import "server-only";
 import { auth } from "@clerk/nextjs/server";
 import { db } from "@/database/db";
 import { todosTable } from "@/database/schemas/todo";
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { usersTable } from "@/database/schemas";
 import { eq } from "drizzle-orm";
 
